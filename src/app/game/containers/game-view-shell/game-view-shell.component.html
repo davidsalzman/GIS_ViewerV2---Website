@@ -1,0 +1,47 @@
+<div *ngIf="game"
+     class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">{{game.name}}</h1>
+                <div class="row">
+                    <div class="col">
+                        <fa-stack>
+                            <fa-icon [icon]="faCircle"
+                                     stackItemSize="2x"
+                                     class="bg-dark"></fa-icon>
+                            <fa-icon [icon]="faSterlingSign"
+                                     stackItemSize="1x"
+                                     class="text-white"></fa-icon>
+                        </fa-stack>
+                        <span>{{game.price | currency:'GBP'}}</span><span *ngIf="game.price != game.rrp"
+                              class="text-danger">&nbsp;<s>{{game.rrp | currency:'GBP'}}</s></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>{{game.description}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let imageUrl of game.images"
+                         class="col">
+                        <img *ngIf="imageUrl"
+                             [src]="imageUrl"
+                             class="img-thumbnail" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary btn-lg w-100"
+                                [disabled]="game.quantity == 0"
+                                (click)="onAddToBasket()">
+                            <span *ngIf="game.quantity == 0">Sold Out!</span>
+                            <span *ngIf="game.quantity > 0">Add to basket ({{game.quantity}} remaining!)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

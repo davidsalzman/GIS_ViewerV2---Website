@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col">
+        <div class="card card-shadow">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <button *ngIf="user"
+                                tooltip="Delete User"
+                                class="btn btn-danger float-end"
+                                (click)="onShowDelete()">
+                            <fa-icon [icon]="faTimes"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-12 col-lg-6">
+                        <form [formGroup]="form"
+                              autocomplete="off"
+                              (ngSubmit)="onSubmit()">
+
+                            <div class="form-group">
+                                <label for="inpName"
+                                       class="required">Name</label>
+                                <input type="text"
+                                       id="inpName"
+                                       validateFormControl
+                                       class="form-control mb-3"
+                                       placeholder="Name"
+                                       formControlName="name" />
+                                <ng-container *ngIf="form.controls.name.touched">
+                                    <p *ngIf="form.controls.name.hasError('required')"
+                                       class="text-danger">
+                                        Name required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpEmail"
+                                       class="required">Email</label>
+                                <input type="email"
+                                       id="inpEmail"
+                                       validateFormControl
+                                       class="form-control mb-3"
+                                       placeholder="Email"
+                                       formControlName="email" />
+                                <ng-container *ngIf="form.controls.email.touched">
+                                    <p *ngIf="form.controls.email.hasError('required')"
+                                       class="text-danger">
+                                        Email required
+                                    </p>
+                                    <p *ngIf="form.controls.email.hasError('email')"
+                                       class="text-danger">
+                                        Valid email required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpAD">Active Directory</label>
+                                <input type="text"
+                                       id="inpAD"
+                                       validateFormControl
+                                       class="form-control mb-3"
+                                       placeholder="STRATFORD\firstName.surname"
+                                       formControlName="ad" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="selRole"
+                                       class="required">Role</label>
+                                <select id="selRole"
+                                        validateFormControl
+                                        class="form-control"
+                                        formControlName="role">
+                                    <option value="0">Select...</option>
+                                    <option [value]="UserPermissionEnum.Normal">Normal</option>
+                                    <option [value]="UserPermissionEnum.Admin">Admin</option>
+                                </select>
+                                <ng-container *ngIf="form.controls.role.touched">
+                                    <p *ngIf="form.controls.role.hasError('required')
+                                    || form.controls.role.hasError('pattern')"
+                                       class="text-danger">
+                                        Role required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <button class="btn btn-success w-100 mt-3 btn-lg"
+                                    [disabled]="!form.valid || isSubmitting">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

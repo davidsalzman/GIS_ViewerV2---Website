@@ -1,0 +1,28 @@
+<div class="row justify-content-center mt-3">
+    <div class="col-12 col-md-8 col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="form"
+                      (submit)="onSubmit()">
+                    <div class="form-group">
+                        <label class="required">Name</label>
+                        <input type="text"
+                               class="form-control"
+                               validateFormControl
+                               placeholder="Your name"
+                               formControlName="name" />
+                        <ng-container *ngIf="form.controls.name.touched">
+                            <p *ngIf="form.controls.name.hasError('required')"
+                               class="text-danger">
+                                Name required
+                            </p>
+                        </ng-container>
+                    </div>
+                    <button type="submit"
+                            class="btn btn-success w-100 mt-3"
+                            [disabled]="isSubmitting">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

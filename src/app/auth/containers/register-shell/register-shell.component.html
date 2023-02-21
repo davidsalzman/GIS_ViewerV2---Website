@@ -1,0 +1,67 @@
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="/assets/images/computer-writing.webp"
+                     class="img-fluid"
+                     alt="Login logo">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <div *ngIf="hasRegistered"
+                     class="text-center">
+                    <h4>Welcome {{form.getRawValue().name}}!</h4>
+                    <p>Please check your email to confirm your account</p>
+                    <p>Not recived yet? Check your junk mail</p>
+                </div>
+
+                <form *ngIf="!hasRegistered"
+                      [formGroup]="form"
+                      (submit)="onSubmit()">
+                      <div class="form-group mb-2">
+                        <label for="inpName">Your Name</label>
+                        <input id="inpName"
+                               class="form-control form-control-lg"
+                               formControlName="name"
+                               placeholder="Your name" />
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="inpEmail">Your Email</label>
+                        <input id="inpEmail"
+                               type="email"
+                               class="form-control form-control-lg"
+                               formControlName="email"
+                               placeholder="Your email" />
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="inpPassword">Your Password</label>
+                        <input id="inpPassword"
+                               type="password"
+                               class="form-control form-control-lg"
+                               formControlName="password"
+                               placeholder="Your password" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="inpPassword">Confirm Password</label>
+                        <input id="inpPassword"
+                               type="password"
+                               class="form-control form-control-lg"
+                               formControlName="confirmPassword"
+                               placeholder="Confirm your password" />
+                    </div>
+                    
+
+                    <bot-checker [(valid)]="isBotValid"></bot-checker>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit"
+                                class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

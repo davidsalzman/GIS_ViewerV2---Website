@@ -1,0 +1,49 @@
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="/assets/images/computer-writing.webp"
+                     class="img-fluid"
+                     alt="Login logo">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form [formGroup]="form"
+                      (submit)="onSubmit()">
+                    <div class="form-group mb-2">
+                        <label for="inpEmail">Email</label>
+                        <input id="inpEmail"
+                               type="email"
+                               class="form-control form-control-lg"
+                               formControlName="email"
+                               placeholder="Your email" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="inpPassword">Password</label>
+                        <input id="inpPassword"
+                               type="password"
+                               class="form-control form-control-lg"
+                               formControlName="password"
+                               placeholder="Your password" />
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a [routerLink]="['/', 'auth', 'forgot-password']"
+                           [queryParams]="{email: form.getRawValue().email}"
+                           class="text-body">Forgot password?</a>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit"
+                                class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">{{isSubmitting ? 'Logging in...' : 'Login'}}</button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a
+                               [routerLink]="['/', 'auth', 'register']"
+                               [queryParams]="{email: form.getRawValue().email}"
+                               class="link-danger">Register</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

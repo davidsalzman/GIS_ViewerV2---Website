@@ -1,0 +1,17 @@
+<div class="mb-2">
+    <div class="form-group">
+        <label for="inpBotCode">Enter the code below</label>
+        <div class="d-flex my-3">
+            <button *ngFor="let randomNumber of randomNumbers"
+                    type="button"
+                    class="btn btn-primary me-1">
+                {{randomNumber}}
+            </button>
+        </div>
+        <input id="inpBotCode"
+               class="form-control form-control-lg"
+               (keyup)="onCheckAntiBot()"
+               [(ngModel)]="enteredNumbers"
+               placeholder="Enter the code above" />
+    </div>
+</div>

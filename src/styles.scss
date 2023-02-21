@@ -1,0 +1,30 @@
+@import "bootstrap/scss/bootstrap.scss";
+@import 'ngx-toastr/toastr';
+
+.required:after {
+    content: " (required)" !important;
+    font-weight: normal !important;
+    font-family: Arial;
+    font-size: 11px;
+    vertical-align: top;
+    color: red;
+  }
+
+  
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0 #{"/* rtl:ignore */"};
+}
+
+.popover-arrow {
+  position: absolute;
+}
+
+.tooltip {
+  position: absolute;
+}
+
+.tooltip-arrow {
+  position: absolute;
+}

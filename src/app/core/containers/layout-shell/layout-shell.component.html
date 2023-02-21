@@ -1,0 +1,60 @@
+<app-splash-screen [show]="showSplashScreen" />
+
+<nav class="top-bar d-print-none row g-0 bg-white pb-3">
+    <div class="col">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a [routerLink]="['/']"
+                   class="h1 mx-3 title">Example</a>
+                <button class="btn ms-1 menu-toggle"
+                        (click)="showMenu = !showMenu">
+                    <fa-icon [icon]="faBars"></fa-icon>
+                </button>
+            </div>
+            <div class="pe-3">
+                <a class="btn mt-3"
+                   [routerLink]="['/', 'order', 'checkout']">
+                    <fa-icon [icon]="faShoppingBasket"
+                             size="2x"></fa-icon>
+                    <span *ngIf="basketQuantity > 0"
+                          class="badge bg-success float-end mt-1">{{basketQuantity}}</span>
+                </a>
+
+                <a *ngIf="user"
+                   class="btn mt-3"
+                   [routerLink]="['/', 'account']">
+                    <fa-icon [icon]="faUser"></fa-icon> Hi, {{user.name}}
+                </a>
+                <a *ngIf="!user"
+                   class="btn mt-3"
+                   [routerLink]="['/', 'auth', 'login']">
+                    <fa-icon [icon]="faLock"></fa-icon> Login
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="d-flex">
+    <menu class="d-print-none menu pt-2"
+          [class.hide]="!showMenu">
+        <div class="menu-scroll">
+            <app-menu-section *ngFor="let section of menu"
+                              [section]="section"
+                              [authenticated]="user ? true : false"
+                              [authService]="authService"></app-menu-section>
+        </div>
+    </menu>
+    <main class="main w-100"
+          [class.menu-hidden]="!showMenu">
+        <div *ngIf="showMenu"
+             class="d-block d-lg-none menu-shadow"
+             (click)="showMenu = !showMenu"></div>
+        <div class="heading">
+            <app-breadcrumbs></app-breadcrumbs>
+
+        </div>
+        <div class="p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

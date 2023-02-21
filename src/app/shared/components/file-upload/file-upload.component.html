@@ -1,0 +1,41 @@
+<div class="form-group">
+    <label><b>{{title}}</b></label>
+    <p *ngIf="helperText"><i>{{helperText}}</i></p>
+    <ngx-file-drop dropZoneLabel="Drop files here"
+                   (onFileDrop)="dropped($event)">
+        <ng-template ngx-file-drop-content-tmp
+                     let-openFileSelector="openFileSelector">
+            Drag and drop files or&nbsp;
+            <button type="button"
+                    (click)="openFileSelector()">Browse Files</button>
+        </ng-template>
+    </ngx-file-drop>
+
+    <div class="upload-table my-3"
+         *ngIf="showTable && files && files.length > 0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Files</th>
+                </tr>
+            </thead>
+            <tbody class="upload-name-style">
+                <tr *ngFor="let item of files; let i=index">
+                    <td>
+                        <button class="btn btn-danger ms-1"
+                                type="button"
+                                (click)="onRemoveFile(i)">
+                            <fa-icon [icon]="faTimes"></fa-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <input class="form-control"
+                               [(ngModel)]="item.name"
+                               placeholder="Document Name">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

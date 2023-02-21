@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button"
+            class="btn-close close pull-right"
+            aria-label="Close"
+            (click)="bsModalRef.hide()">
+        <span aria-hidden="true"
+              class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">    
+    <p>{{text}}</p>
+    <div class="row">
+        <div class="col">
+            <button (click)="onConfirm(false)"
+                    class="btn w-100 btn-lg"
+                    [ngClass]="noColour">{{noText}}</button>
+        </div>
+        <div class="col">
+            <button (click)="onConfirm(true)"
+                    class="btn w-100 btn-lg"
+                    [ngClass]="yesColour">{{yesText}}</button>
+        </div>
+    </div>
+</div>

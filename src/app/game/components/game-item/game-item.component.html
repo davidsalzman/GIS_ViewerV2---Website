@@ -1,0 +1,18 @@
+<a [routerLink]="['/', 'game', game.id, 'view']">
+    <div class="text-center">
+        <img *ngIf="imageUrl"
+             [src]="imageUrl"
+             class="img-thumbnail" />
+        <h4>{{game.name}}</h4>
+        <fa-stack>
+            <fa-icon [icon]="faCircle"
+                     stackItemSize="2x"
+                     class="bg-dark"></fa-icon>
+            <fa-icon [icon]="faSterlingSign"
+                     stackItemSize="1x"
+                     class="text-white"></fa-icon>
+        </fa-stack>
+        <span>{{game.price | currency:'GBP'}}</span><span *ngIf="game.price != game.rrp"
+              class="text-danger">&nbsp;<s>{{game.rrp | currency:'GBP'}}</s></span>
+    </div>
+</a>

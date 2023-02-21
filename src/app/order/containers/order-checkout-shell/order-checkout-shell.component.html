@@ -1,0 +1,118 @@
+<div *ngIf="!orderId && (!basket || basket.length == 0)"
+     class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">No Games have been selected</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="orderId"
+     class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-body text-center">
+                <h1>Your order has been placed!</h1>
+                <h4>Order reference #{{orderId}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngIf="!orderId && basket && basket.length > 0">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="form"
+                          autocomplete="off">
+                        <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   validateFormControl
+                                   placeholder="Your name"
+                                   formControlName="name" />
+                            <ng-container *ngIf="form.controls.name.touched">
+                                <p *ngIf="form.controls.name.hasError('required')"
+                                   class="text-danger">
+                                    Name required
+                                </p>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   validateFormControl
+                                   placeholder="Your email"
+                                   formControlName="email" />
+                            <ng-container *ngIf="form.controls.email.touched">
+                                <p *ngIf="form.controls.email.hasError('required')"
+                                   class="text-danger">
+                                    Email required
+                                </p>
+                                <p *ngIf="form.controls.email.hasError('email')"
+                                   class="text-danger">
+                                    Invalid Email
+                                </p>
+                            </ng-container>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let item of basket"
+         class="row justify-content-center mt-3">
+        <div class="col-12 col-lg-4 col-xl-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h4>{{item.game.name}}</h4>
+                        <fa-stack>
+                            <fa-icon [icon]="faCircle"
+                                     stackItemSize="2x"
+                                     class="bg-dark"></fa-icon>
+                            <fa-icon [icon]="faSterlingSign"
+                                     stackItemSize="1x"
+                                     class="text-white"></fa-icon>
+                        </fa-stack>
+                        <span>{{item.game.price | currency:'GBP'}} x {{item.quantity}} =
+                            {{item.game.price * item.quantity | currency:'GBP'}}</span>
+                        <div class="btn-group">
+                            <button (click)="onIncreaseBasket(item.game)"
+                                    class="btn btn-success"
+                                    type="button">
+                                <fa-icon [icon]="faPlus"></fa-icon>
+                            </button>
+                            <button (click)="onDecreaseBasket(item.game)"
+                                    class="btn btn-danger"
+                                    type="button">
+                                <fa-icon [icon]="faTimes"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <button (click)="onSubmit()"
+                            type="button"
+                            class="btn btn-success w-100"
+                            [disabled]="!form.valid">
+                        Submit & Pay {{totalCharge | currency: 'GBP'}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

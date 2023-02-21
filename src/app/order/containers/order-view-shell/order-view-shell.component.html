@@ -1,0 +1,42 @@
+<ng-container *ngIf="order">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1>#{{order.id}}</h1>
+
+                    <fa-stack>
+                        <fa-icon [icon]="faCircle"
+                                 stackItemSize="2x"
+                                 class="bg-dark"></fa-icon>
+                        <fa-icon [icon]="faSterlingSign"
+                                 stackItemSize="1x"
+                                 class="text-white"></fa-icon>
+                    </fa-stack>
+
+                    <span>{{order.totalCharge | currency:'GBP'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let key of order.keys"
+         class="row justify-content-center mt-3">
+        <div class="col-12 col-md-8 col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <fa-stack>
+                        <fa-icon [icon]="faCircle"
+                                 stackItemSize="2x"
+                                 class="bg-dark"></fa-icon>
+                        <fa-icon [icon]="faKey"
+                                 stackItemSize="1x"
+                                 class="text-white"></fa-icon>
+                    </fa-stack>
+
+                    <span>{{key.key}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

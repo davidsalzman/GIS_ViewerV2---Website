@@ -1,0 +1,37 @@
+<div *ngIf="result.total === 0"
+     class="row justify-content-center mt-3">
+    <div class="col-12 col-lg-8 col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="p-5 mb-4 bg-light rounded-3 text-center">
+                    <div class="container-fluid py-3">
+                        <h1>No Games Found</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-3">
+    <div *ngFor="let order of result.items"
+         class="col-12 col-lg-4 col-xl-3 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <app-order-item [order]="order"></app-order-item>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center pagination-margin no-gutters"
+     *ngIf="result.total > 0">
+    <pagination [totalItems]="result.total"
+                [(ngModel)]="pageNumber"
+                [maxSize]="5"
+                [rotate]="true"
+                [itemsPerPage]="itemsPerPage"
+                (pageChanged)="onPageChange($event)"
+                nextText=">"
+                previousText="<"></pagination>
+</div>

@@ -1,0 +1,8 @@
+<div *ngIf="section.name"
+     class="my-3">
+    <span class="text-section h6 ms-2 text-uppercase">━&nbsp;&nbsp;&nbsp;{{section.name}}</span>
+</div>
+<app-menu-item *ngFor="let item of section.items"
+               [item]="item"
+               [authenticated]="authenticated"
+               [authService]="authService"></app-menu-item>

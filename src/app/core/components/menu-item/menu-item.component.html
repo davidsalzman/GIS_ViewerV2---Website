@@ -1,0 +1,42 @@
+<ng-container *ngIf="hasRole && (!item.requireAuth || (item.requireAuth && authenticated))">
+    <ul *ngIf="!isSubMenu"
+        class="list-group">
+        <a *ngIf="item.url"
+           [routerLink]="item.url"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="text-muted">
+            <li class="menu-item mx-3 px-3 py-2">
+                <fa-icon *ngIf="item.icon"
+                         [icon]="item.icon"></fa-icon> {{item.name}}
+            </li>
+        </a>
+
+        <li *ngIf="!item.url"
+            class="menu-item mx-3 px-3 py-2"
+            (click)="onToggleSubMenu()">
+            <span class="text-muted">
+                <fa-icon *ngIf="item.icon"
+                         [icon]="item.icon"></fa-icon> {{item.name}}
+                <fa-icon class="float-end"
+                         [icon]="showSubMenu ? faAngleDown : faAngleRight"></fa-icon>
+            </span>
+        </li>
+        <ul *ngIf="item.subMenu && item.subMenu.length > 0"
+            class="list-group mx-3">
+            <app-menu-item *ngFor="let sub of item.subMenu"
+                           [item]="sub"
+                           [isSubMenu]="true"
+                           [show]="showSubMenu"></app-menu-item>
+        </ul>
+    </ul>
+
+    <a *ngIf="isSubMenu && show"
+       [routerLink]="item.url"
+       class="text-muted">
+        <li class="menu-item mx-3 p-2">
+            <fa-icon [icon]="faCircle"
+                     size="xs"></fa-icon> {{item.name}}
+        </li>
+    </a>
+</ng-container>
