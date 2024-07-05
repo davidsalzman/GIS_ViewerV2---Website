@@ -1,0 +1,125 @@
+<div class="row">
+    <div class="page-header">
+        <h3>Export - Edit</h3>
+    </div>
+    <div class="col">
+        <div class="card card-shadow">
+            <div class="card-body">
+
+                <div class="row justify-content-center mt-3">
+                    <div class="col-12 col-lg-6">
+                        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
+
+                            <div class="form-group">
+                                <label for="inpName" class="required">Name</label>
+                                <input type="text" id="inpName" validateFormControl class="form-control mb-3"
+                                    placeholder="Name" formControlName="name" />
+                                <ng-container *ngIf="form.controls.name.touched">
+                                    <p *ngIf="form.controls.name.hasError('required')" class="text-danger">
+                                        Name required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpdescription" class="required">Description</label>
+                                <input type="text" id="inpdescription" validateFormControl class="form-control mb-3"
+                                    placeholder="Description" formControlName="description" />
+                                <ng-container *ngIf="form.controls.description">
+                                    <p *ngIf="form.controls.description.hasError('required')" class="text-danger">
+                                        Description required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpSiteId" class="required">SiteId</label>
+                                <input type="email" id="inpSiteId" validateFormControl class="form-control mb-3"
+                                    placeholder="SiteId" formControlName="siteId" />
+                                <ng-container *ngIf="form.controls.siteId.touched">
+                                    <p *ngIf="form.controls.siteId.hasError('required')" class="text-danger">
+                                        SiteId required
+                                    </p>
+
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpFilename" class="required">File Name</label>
+                                <input type="text" id="inpFilename" validateFormControl class="form-control mb-3"
+                                    placeholder="filename" formControlName="filename" />
+                                <ng-container *ngIf="form.controls.filename.touched">
+                                    <p *ngIf="form.controls.filename.hasError('required')" class="text-danger">
+                                        File Name required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpZipname" class="required">Zip Name</label>
+                                <input type="text" id="inpzipname" validateFormControl class="form-control mb-3"
+                                    placeholder="Zip Name" formControlName="zipname" />
+                                <ng-container *ngIf="form.controls.zipname.touched">
+                                    <p *ngIf="form.controls.zipname.hasError('required')" class="text-danger">
+                                        Zip Name required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpsource" class="required">Source</label>
+                                <input type="text" id="inpsource" validateFormControl class="form-control mb-3"
+                                    placeholder="Source" formControlName="source" />
+                                <ng-container *ngIf="form.controls.source">
+                                    <p *ngIf="form.controls.source.hasError('required')" class="text-danger">
+                                        Source required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpdestination" class="required">Destination</label>
+                                <input type="text" id="inpdestination" validateFormControl class="form-control mb-3"
+                                    placeholder="Destination" formControlName="destination" />
+                                <ng-container *ngIf="form.controls.destination">
+                                    <p *ngIf="form.controls.destination.hasError('required')" class="text-danger">
+                                        Destination required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label>End of Day Job</label>
+                                <br>
+                                <label class="switch-yes-no">
+                                    <input type="checkbox" formControlName="eod">
+                                    <span class="slider round"></span>
+                                    <span class="absolute-no">No</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <br>
+                                <label class="switch-active-inactive">
+                                    <input type="checkbox" formControlName="isActive">
+                                    <span class="slider round"></span>
+                                    <span class="absolute-no">Inactive</span>
+                                </label>
+                            </div>
+
+                            <button *ngIf="!export" class="btn btn-success w-100 mt-3 btn-lg"
+                                [disabled]="!form.valid || isSubmitting">Create</button>
+                            <button *ngIf="export" class="btn btn-success w-100 mt-3 btn-lg"
+                                [disabled]="!form.valid || isSubmitting">Update</button>
+                            <button *ngIf="export" class="btn btn-secondary w-100 mt-3 btn-lg"
+                                (click)="onCancel('Update Export Canceled')">Cancel</button>
+                            <button *ngIf="!export" class="btn btn-secondary w-100 mt-3 btn-lg"
+                                (click)="onCancel('Create Export Canceled')">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

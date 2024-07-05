@@ -1,0 +1,139 @@
+<div class="page-header">
+  <h3>Upload Imports to Pay360</h3>
+</div>
+<div class="col">
+  <div class="card card-shadow">
+    <div class="card-body">
+      <div class="row">
+
+        <div class="row justify-content-center mt-3">
+          <div class="col-12 col-lg-6">
+            <form [formGroup]="uploadForm" autocomplete="off">
+              <div class="form-group">
+                <label for="inpImportId" class="required">Import</label>
+
+                <select class="form-control" formControlName="importControl" [(ngModel)]="assignedImportId" (change)="onImportChange($event)">
+                  <option value="0" disabled>Select Import...</option>
+                  <option *ngFor="let import of imports" [value]="import.id">
+                    {{import.name}}
+                  </option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="selectedImport" class="row justify-content-center mt-3">
+          <div class="col-12 col-lg-6">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+              (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+              <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                <div>
+
+                  <strong>Drag and Drop your files here.</strong><br>
+                  <span>or</span>
+                  <button class="btn btnIcon1 mt-2 mb-5 mx-auto px-5" (click)="openFileSelector()">Choose
+                    Files</button>
+                  <!-- <p class="fs-12">
+              <strong class="text-orange mr-1">Note:</strong>
+              <span>Maximum 5 documents, having 20 MB each can be uploaded.</span>
+            </p> -->
+                </div>
+              </ng-template>
+            </ngx-file-drop>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 mb-3" *ngIf="filesToUpload.length > 0">
+    <h4>Files to upload</h4>
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th [width]="100"></th>
+              <th>Import Name</th>
+              <th>File Name</th>
+              <th>Date Modified</th>
+              <th>Size</th>
+              <th [width]="300"></th>
+              <th [width]="100"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filesToUpload; let i=index">
+              <td>
+                <a class="btn btn-danger btn-sm" tooltip="Remove File" (click)="onRemoveFile(i)">
+                  <fa-icon [icon]="faTimes"></fa-icon>
+                </a>
+              </td>
+              <td><strong>{{ item.importName}}</strong></td>
+              <td>{{item.fileName }}</td>
+              <td>{{item.lastModified}}</td>
+              <td>{{item.fileSize}}</td>
+              <td>
+                @if (progress) {
+                <div class="progress my-3">
+                  <div
+                    class="progress-bar progress-bar-info"
+                    role="progressbar"
+                    attr.aria-valuenow="{{ progress }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    [ngStyle]="{ width: progress + '%' }"
+                  >
+                    {{ progress }}%
+                  </div>
+          
+                </div>
+              }
+              </td>
+              <td>
+                <a class="btn btn-success btn-sm float-end" tooltip="Upload File" (click)="onUploadFile(i)">
+                  <fa-icon [icon]="faUpload"></fa-icon>
+                </a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 mb-3" *ngIf="filesUploaded.length > 0">
+    <h4>Files uploaded</h4>
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Import Name</th>
+              <th>File Name</th>
+              <th>Date Modified</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filesUploaded; let i=index">
+              
+              <td><strong>{{ item.importName}}</strong></td>
+              <td>{{item.fileName }}</td>
+              <td>{{item.lastModified}}</td>
+              <td>{{item.fileSize}}</td>
+             
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+

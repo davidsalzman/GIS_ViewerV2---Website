@@ -1,0 +1,9 @@
+<div *ngIf="breadcrumbs && breadcrumbs.length > 0" class="row justify-content-center m-0">
+    <div class="col-12 pt-2">
+        <span class="text-black"
+              *ngFor="let item of breadcrumbs; let i = index">
+            <a [routerLink]="item.url" class="text-black"><span *ngIf="!item.icon">{{item.name}}</span> <fa-icon *ngIf="item.icon" [icon]="item.icon"></fa-icon></a>&nbsp;
+            <fa-icon *ngIf="i < (breadcrumbs.length - 1)" [icon]="faAngleRight"></fa-icon>&nbsp;
+        </span>
+    </div>
+</div>

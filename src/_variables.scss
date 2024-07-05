@@ -1,0 +1,22 @@
+//$header-primary: #6c757d;
+//$header-secondary:  darken($color: $header-primary, $amount: 7%);
+
+$header-primary: #6c757d;
+$header-secondary: #cc9f18;
+
+$menu-nav-link-active: $header-secondary;
+$menu-nav-link-hover:  lighten($color: $header-secondary,$amount: 17%);
+
+
+
+$primary: #0d6efd;
+$secondary: #6c757d;
+$success: #198754;
+$info: #0dcaf0;
+$bs-warning: #ffc107;
+$bs-danger: #dc3545;
+$bs-light: #f8f9fa;
+$bs-dark: #212529;
+$bs-primary-rgb: 13, 110, 253;
+$bs-secondary-rgb: 108, 117, 125;
+$bs-success-rgb: 25, 135, 84;

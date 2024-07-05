@@ -1,0 +1,88 @@
+<div class="row">
+    <div class = "page-header"><h3>Staff - Edit</h3></div>
+    <div class="col">
+        <div class="card card-shadow">
+            <div class="card-body">
+
+                <div class="row justify-content-center mt-3">
+                    <div class="col-12 col-lg-6">
+                        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
+
+                            <div class="form-group">
+                                <label for="inpName" class="required">Name</label>
+                                <input type="text" id="inpName" validateFormControl class="form-control mb-3"
+                                    placeholder="Name" formControlName="name" />
+                                <ng-container *ngIf="form.controls.name.touched">
+                                    <p *ngIf="form.controls.name.hasError('required')" class="text-danger">
+                                        Name required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpEmail" class="required">Email</label>
+                                <input type="email" id="inpEmail" validateFormControl class="form-control mb-3"
+                                    placeholder="Email" formControlName="email" />
+                                <ng-container *ngIf="form.controls.email.touched">
+                                    <p *ngIf="form.controls.email.hasError('required')" class="text-danger">
+                                        Email required
+                                    </p>
+                                    <p *ngIf="form.controls.email.hasError('email')" class="text-danger">
+                                        Valid email required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inpAD" class="required">Active Directory</label>
+                                <input type="text" id="inpAD" validateFormControl class="form-control mb-3"
+                                    placeholder="STRATFORD\firstName.surname" formControlName="ad" />
+                                <ng-container *ngIf="form.controls.ad.touched">
+                                    <p *ngIf="form.controls.ad.hasError('required')" class="text-danger">
+                                        Active Directory required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="selRole" class="required">Role</label>
+                                <select id="selRole" validateFormControl class="form-control" formControlName="role">
+                                    
+                                    <option [value]="UserRoleEnum.Normal">Normal</option>
+                                    <option [value]="UserRoleEnum.Admin">Admin</option>
+                                    <option [value]="UserRoleEnum.Developer">Developer</option>
+                                </select>
+                                <ng-container *ngIf="form.controls.role.touched">
+                                    <p *ngIf="form.controls.role.hasError('required')
+                                    || form.controls.role.hasError('pattern')" class="text-danger">
+                                        Role required
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group">
+                                <br>
+                                <label>Status</label>
+                                <br>
+                                <label class="switch-active-inactive">
+                                    <input type="checkbox" formControlName="isActive">
+                                    <span class="slider round"></span>
+                                    <span class="absolute-no">Inactive</span>
+                                </label>
+                            </div>
+
+                            <button *ngIf="!user" class="btn btn-success w-100 mt-3 btn-lg"
+                                [disabled]="!form.valid || isSubmitting">Create</button>
+                            <button *ngIf="user" class="btn btn-success w-100 mt-3 btn-lg"
+                                [disabled]="!form.valid || isSubmitting">Update</button>
+                            <button *ngIf="user" class="btn btn-secondary w-100 mt-3 btn-lg"
+                                (click)="onCancel('Update User Canceled')">Cancel</button>
+                            <button *ngIf="!user" class="btn btn-secondary w-100 mt-3 btn-lg"
+                                (click)="onCancel('Create User Canceled')">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,208 @@
+<div class="page-header">
+  <h3>Allpay</h3>
+</div>
+<div class="col">
+  <div class="card card-shadow">
+    <div class="card-body">
+
+      <div class="row">
+        <div class="row justify-content-center mt-3">
+          <div class="col-12 col-lg-6">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+              (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+              <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                <div>
+
+                  <strong>Drag and Drop AllPay files here.</strong><br>
+                  <span>or</span>
+                  <button class="btn btnIcon1 mt-2 mb-5 mx-auto px-5" (click)="openFileSelector()">Choose
+                    Files</button>
+                  <p class="fs-12">
+                    <strong class="text-orange mr-1">Note:</strong>
+                    <span> Only file type's .PO .PP .PZ .DD .CSH .CQE .TC .TCC .TDC .EPY can be accepted</span>
+                  </p>
+
+                </div>
+              </ng-template>
+            </ngx-file-drop>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!processed">
+    <div *ngIf="fileTotal == 0">
+      <div class="col-12 mb-3" *ngIf="duplicatedFiles.length > 0">
+        <h4>Files to process</h4>
+        <div class="card">
+          <div class="card-body">
+            <div class="col text-center">
+              <h3>No Files Available for Processing</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-12 mb-3" *ngIf="fileTotal > 0">
+      <h4>Files to process</h4>
+      <div class="card">
+        <div class="card-body">
+
+          <table class="table table-striped">
+            <thead>
+              <th [width]="100"></th>
+              <th>File Name</th>
+              <th>Allpay Id</th>
+              <th>Date Created</th>
+              <th>Total Amount</th>
+              <th>Total Records</th>
+              <th [width]="100"></th>
+            </thead>
+
+            <tbody>
+
+              <ng-container *ngFor="let item of extractedFiles; let i=index">
+                <tr *ngIf="item.totalAmount > 0">
+                  <td>
+                    <a class="btn btn-danger btn-sm" tooltip="Remove File" (click)="onRemoveFile(i)">
+                      <fa-icon [icon]="faTimes"></fa-icon>
+                    </a>
+                  </td>
+                  <td><strong>{{item.name }}</strong></td>
+                  <td>{{item.allPayId}}</td>
+                  <td>{{item.createdDateUTC | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{item.totalAmount | currency: '£'}}</td>
+                  <td>{{item.totalRecords}}</td>
+                  <td *ngIf="item.expanded"><a class="btn btn-secondary btn-sm" tooltip="Hide records"
+                      (click)="item.expanded = !item.expanded">
+                      <fa-icon [icon]="faAngleDoubleUp"></fa-icon>
+                    </a></td>
+                  <td *ngIf="!item.expanded"><a class="btn btn-secondary btn-sm" tooltip="Veiw records"
+                      (click)="item.expanded = !item.expanded">
+                      <fa-icon [icon]="faAngleDoubleDown"></fa-icon>
+                    </a></td>
+                </tr>
+                <tr *ngIf="item.totalAmount > 0">
+                  <td colspan="4">
+                    <ng-container *ngIf="item.expanded">
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th>Reference</th>
+                            <th>Amount</th>
+                            <th>Record Type</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let details of item.allPayRecords">
+                            <td> {{details.reference}} </td>
+                            <td> {{details.amount | currency: '£'}} </td>
+                            <td>{{details.typeDTO.name}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <button class="btn btn-success float-end" type="button" tooltip="Process Files" (click)="onCreateFile()"
+            placement="bottom">Process Files
+            <fa-icon [icon]="faCogs"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3" *ngIf="duplicatedFiles.length > 0">
+      <h6>The following files have previously been processed and will be excluded.</h6>
+      <div class="card">
+        <div class="card-body">
+
+          <table class="table table-striped">
+            <thead>
+              <th [width]="100"></th>
+              <th>File Name</th>
+              <th>Allpay Id</th>
+              <th>Date Created</th>
+              <th>Total Amount</th>
+              <th>Total Records</th>
+              <th [width]="100"></th>
+            </thead>
+
+            <tbody>
+
+              <ng-container *ngFor="let item of duplicatedFiles; let i=index">
+                <tr *ngIf="item.totalAmount > 0">
+                  <td>
+                    <a class="btn btn-primary btn-sm" tooltip="View details" (click)="onShowDuplicate(i)">
+                      <fa-icon [icon]="faSearch"></fa-icon>
+                    </a>
+                  </td>
+                  <td><strong>{{item.name }}</strong></td>
+                  <td>{{item.allPayId}}</td>
+                  <td>{{item.createdDateUTC | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{item.totalAmount | currency: '£'}}</td>
+                  <td>{{item.totalRecords}}</td>
+                  <td *ngIf="item.expanded"><a class="btn btn-secondary btn-sm" tooltip="Hide records"
+                      (click)="item.expanded = !item.expanded">
+                      <fa-icon [icon]="faAngleDoubleUp"></fa-icon>
+                    </a></td>
+                  <td *ngIf="!item.expanded"><a class="btn btn-secondary btn-sm" tooltip="Veiw records"
+                      (click)="item.expanded = !item.expanded">
+                      <fa-icon [icon]="faAngleDoubleDown"></fa-icon>
+                    </a></td>
+                </tr>
+                <tr *ngIf="item.totalAmount > 0">
+                  <td colspan="4">
+                    <ng-container *ngIf="item.expanded">
+                      <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th>Reference</th>
+                            <th>Amount</th>
+                            <th>Record Type</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let details of item.allPayRecords">
+                            <td> {{details.reference}} </td>
+                            <td> {{details.amount | currency: '£'}} </td>
+                            <td>{{details.typeDTO.name}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="processed">
+<br>
+<br>
+    <!-- <div class="alert alert-dismissible alert-success">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h6>An AllPay feeder file named <strong>{{allPayFeeder}}</strong> has been created and can be found in your downloads folder</h6>
+      </div> -->
+
+
+    <div class="alert alert-success mb-3" style="text-align: center; vertical-align: middle;">
+
+      <p>An AllPay feeder file named <strong>{{allPayFeeder}}</strong> has been created and can be found in your
+        downloads folder</p>
+
+    </div>
+
+
+
+  </div>
+</div>

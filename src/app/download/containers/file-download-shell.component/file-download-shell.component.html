@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="page-header">
+    <h3>Download Exports from Pay360</h3>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSearchCriteriaChange()">
+
+          <div class="row justify-content-center">
+            <div class="col-8 col-lg-">
+
+              <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Search..." formControlName="searchText" />
+                <button class="btn btn-secondary" type="submit" tooltip="Search" placement="bottom">
+                  <fa-icon [icon]="faSearch"></fa-icon>
+                </button>
+                
+
+
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="result.total === 0" class="row justify-content-center mt-3">
+  <div class="col-12 col-lg-8 col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="p-5 mb-4 bg-light rounded-3 text-center">
+          <div class="container-fluid py-3">
+            <h1>No Exports Found</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="result.total > 0">
+<p class="note">
+  <strong class="text-orange mr-1">Note:</strong>
+  <span> Please ensure that exports have been exported via Pay360 before attempting to download them here.</span>
+</p>
+</div>
+
+<div *ngIf="result.total > 0" class="row justify-content-center mt-3">
+  <div class="col-12 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-primary float-end" type="button" tooltip="Download all EOD exports"
+                  placement="bottom">
+                  <fa-icon [icon]="faDownload"></fa-icon>
+                </button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+
+              <th>Name</th>
+              <th>Description</th>
+              <th>EOD Job</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of result.items">
+
+              <td><strong>{{item.name}}</strong></td>
+              <td>{{item.description}}</td>
+              <td *ngIf="item.eod === true">Yes</td>
+              <td *ngIf="item.eod === false">No</td>
+
+              <td><a class="btn btn-success" type="button" tooltip="Download Export" placement="bottom">
+                  <fa-icon [icon]="faDownload"></fa-icon>
+                </a></td>
+
+
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center pagination-margin no-gutters" *ngIf="result.total > 0">
+  <pagination [totalItems]="result.total" [(ngModel)]="pageNumber" [maxSize]="5" [rotate]="true"
+    [itemsPerPage]="itemsPerPage" (pageChanged)="onPageChange($event)" nextText=">" previousText="<"></pagination>
+</div>
+
+

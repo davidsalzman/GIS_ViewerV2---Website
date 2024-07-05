@@ -1,0 +1,12 @@
+<div class="full-page">
+    <div class="row error-box"
+     *ngIf="errorText">
+    <div class="col text-center">
+        <span class="text-warning">
+            <fa-icon [icon]="faExclamationTriangle"
+                     size="6x"></fa-icon>
+        </span>
+        <h2>{{errorText}}</h2>
+    </div>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<nav class="fixed-top bg-custom-primary row nav-custom">
+  <div class="col-3 col-lg-2 text-center bg-custom-secondary title">
+    <a class="text-white" [routerLink]="['/viewer/map']">
+      <ng-container>Pay360 Local</ng-container>
+    </a>
+  </div>
+  <div class="col p-0 d-block">
+    <button class="btn text-white btn-menu" (click)="showMenu = !showMenu">
+      <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+  </div>
+  
+ 
+ 
+  <div *ngIf="authUser" class="col text-end pt-2 pe-4">
+    <span class="user-name">
+        Hello, {{authUser.name}}  <!-- ( {{user.group.name}} ) -->
+    </span>
+  </div>
+  <div *ngIf="!authUser" class="btn mt-3" [routerLink]="['/', 'auth', 'login']">
+    <fa-icon [icon]="faLock"></fa-icon> Login
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row justify-content-end">
+    <menu class="d-print-none menu pt-2" [class.hide]="!showMenu">
+      <div class="menu-scroll">
+        <app-menu [show]="showMenu" [isAdmin]="isAdmin" [isNormal]="isNormal"></app-menu>
+      </div>
+    </menu>
+    <main role="main" [ngClass]="{'col-md-9 ms-sm-auto col-lg-10 mb-3': showMenu, 'col-12': !showMenu}">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

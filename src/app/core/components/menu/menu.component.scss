@@ -1,0 +1,88 @@
+@import "../../../../variables";
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; 
+  padding: 50px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  //background-color: $menu-background;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: $header-primary;//#333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: $menu-nav-link-active;
+  
+}
+
+.sidebar .nav-link:hover {
+  //color: $menu-nav-link-hover;
+  font-weight: 900;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.sidebar {
+  transition: left 0.5s ease-out;
+}
+
+.sidebar.hide {
+  left: -17%;
+}
+
+@media (max-width: 992px) {
+  .sidebar.hide {
+    left: -25%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    min-width: 240px;
+  }
+
+  .sidebar.hide {
+    left: -240px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .d-xxl-inline {
+    display: inline !important;
+  }
+}

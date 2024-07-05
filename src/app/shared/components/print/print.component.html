@@ -1,0 +1,88 @@
+<div class="esri-print esri-widget esri-widget--panel">
+
+    <div class="esri-print__container">
+
+        <div style="float: right;"><button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="bsModalRef.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button></div>
+        <header class="esri-print__header-title pull-left">Create PDF</header>
+
+        <div>
+            <section id="18b4cb32c30-widget-6__mapOnlyContent" aria-labelledby="18b4cb32c30-widget-6__mapOnlyTab"
+                class="esri-print__map-only-section" role="tabpanel">
+                <div class="esri-print__panel-container">
+                    <form [formGroup]="form" autocomplete="off">
+                        <div class="form-group">
+                            <div class="esri-print__form-section-container">
+                                <label for="inptitle" class="required">Title</label>
+                                <input type="text" tabindex="0" placeholder="Title"
+                                    class="esri-print__input-text esri-input" id="inptitle" formControlName="title" />
+                            </div>
+                            <ng-container *ngIf="form.controls.title.touched">
+                                <p *ngIf="form.controls.title.hasError('required')" class="text-danger">
+                                    Title required
+                                </p>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <div class="esri-print__form-section-container">
+                                <label for="inpfileName" class="required">File Name</label>
+                                <input type="text" tabindex="0" placeholder="File name"
+                                    class="esri-print__input-text esri-input" id="inpfileName"
+                                    formControlName="fileName" />
+                            </div>
+                            <ng-container *ngIf="form.controls.fileName.touched">
+                                <p *ngIf="form.controls.fileName.hasError('required')" class="text-danger">
+                                    File Name required
+                                </p>
+                            </ng-container>
+                        </div>
+                        <div class="form-group">
+                            <div class="esri-print__form-section-container">
+                                <label for="inpprintTemplateId">Print Template</label>
+                                <select class="esri-select" data-input-name="printTemplateId" id="printTemplateId"
+                                    formControlName="printTemplateId" (change)="onChangePrintTemplate($event)">
+                                    <option *ngFor="let template of printTemplates" [value]="template.id">
+                                        {{template.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="esri-print__form-section-container">
+                                <input type="checkbox" tabindex="0" id="inpwatermark" formControlName="watermark" />
+                                <label for="inpfileName" style="padding-left: 5px;"> Show Watermark</label>
+                            </div>
+                        </div>
+                        <div *ngIf="showMapLegends">
+                            <header class="esri-print__header-title pull-left">Map Legends</header>
+                            <p>{{legendText}}</p>
+                            <div class="form-group">
+                                <calcite-accordion>
+                                    <calcite-accordion-item *ngFor="let template of printTemplateLayers"
+                                        heading="{{template.title}}" icon-start="layers">
+                                        <calcite-notice open>
+                                            <div slot="message" *ngFor="let legend of template.legends">
+                                                <input type="checkbox" tabindex="0" [checked]="0"
+                                                    (click)="onClickLegend(legend)" />
+                                                <img [src]="legend.imageData" class="Key" [width]="legend.width"
+                                                    [height]="legend.height">
+                                                <label for="inpfileName" style="padding-left: 5px;">
+                                                    {{legend.label}}</label>
+                                            </div>
+                                        </calcite-notice>
+                                    </calcite-accordion-item>
+                                </calcite-accordion>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <button type="button" [disabled]="!form.valid" (click)="onSubmit(true)"
+                class="esri-print__export-button esri-button">Create</button>
+        </div>
+    </div>
+</div>
+
+<!-- description="select which {{template.title}} legends you wish to display as a key" -->
